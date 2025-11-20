@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة إشارة - نظام تعليمي مدمج</title>
+    <style>
+        /* =======================================
+           CSS المدمج (التنسيقات العامة)
+           ======================================= */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #e9ecef; 
+            margin: 0; 
+            padding: 20px; 
+            direction: rtl; 
+            text-align: right;
+        }
+
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            background-color: white; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05); 
+            min-height: 80vh;
+        }
+        
+        /* تنسيقات الصفحة الرئيسية */
+        #main-content { padding: 30px; }
+        h1 { color: #007bff; margin-bottom: 20px; text-align: center; }
+        
+        .module-card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        .module-header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 20px;
+            font-size: 1.5em;
+        }
+        .task-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .task-list li {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .task-list li:last-child { border-bottom: none; }
+        .task-list li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.2s;
+            cursor: pointer; /* للإشارة إلى أنها قابلة للنقر */
+        }
+        .task-list li a:hover { color: #007bff; }
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+        .status-completed { background-color: #28a745; color: white; }
+        .status-pending { background-color: #ffc107; color: #333; }
+        
+        /* تنسيقات صفحات المهام */
+        .task-view { display: none; } /* إخفاء المحتوى في البداية */
+        .task-container {
+            display: flex;
+            flex-direction: row-reverse; 
+        }
+
+        .info-panel, .code-panel { 
+            padding: 30px; 
+            flex: 1; 
+        }
+
+        .code-panel { 
+            border-right: 1px solid #dee2e6;
+            background-color: #f8f9fa; 
+        }
+
+        h3 { 
+            color: #28a745; 
+            border-bottom: 2px solid #28a745; 
+            padding-bottom: 5px; 
+            margin-top: 25px; 
+        }
+
+        .task-goal { 
+            background-color: #fff3cd; 
+            border-left: 5px solid #ffc107; 
+            padding: 15px; 
+            margin-bottom: 20px; 
+            font-weight: bold; 
+        }
+
+        textarea { 
+            width: 95%; 
+            height: 180px;
+            background-color: #1e1e1e; 
+            color: #dcdcdc; 
+            padding: 10px; 
+            font-family: 'Consolas', monospace; 
+            resize: none; 
+            border-radius: 4px;
+            direction: ltr; 
+            text-align: left;
+            border: none;
+        }
+
+        .action-bar { 
+            margin-top: 20px; 
+            text-align: left;
+        }
+
+        .action-bar button { 
+            padding: 10px 25px; 
+            font-size: 16px; 
+            background-color: #007bff; 
+            color: white; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            transition: background-color 0.3s; 
+        }
+
+        .simulator-output { 
+            margin-top: 20px; 
+            padding: 15px; 
+            border: 1px dashed #ccc; 
+            min-height: 100px; 
+            text-align: center; 
+            color: #6c757d; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div id="homepage" class="task-view">
+            <div id="main-content">
+                <h1>🚀 مسارات تعلم الأردوينو - منصة إشارة</h1>
+                <p>ابدأ رحلتك خطوة بخطوة. انقر على رابط المهمة لبدء التحدي.</p>
+
+                <div class="module-card">
+                    <div class="module-header">
+                        المسار الأول: الأساسيات الإلكترونية والبرمجية
+                    </div>
+                    <ul class="task-list">
+                        <li>
+                            <a onclick="loadTask('task-1')">المهمة 1: أول وميض (Hello World)</a>
+                            <span class="status-completed">مكتملة</span>
+                        </li>
+                        <li>
+                            <a onclick="loadTask('task-2')">المهمة 2: تغيير سرعة الوميض</a>
+                            <span class="status-completed">مكتملة</span>
+                        </li>
+                        <li>
+                            <a onclick="loadTask('task-3')">المهمة 3: استخدام المتغيرات (Variables)</a>
+                            <span class="status-pending">قيد الانتظار</span>
+                        </li>
+                        <li>
+                            <a href="#">المهمة 4: التحكم بمصباحين</a>
+                            <span class="status-pending">قريباً</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="task-content">
+            </div>
+
+    </div>
+
+    <script>
+        // قواعد بيانات المهام
+        const tasks = {
+            'task-1': {
+                title: 'المهمة 1: أول وميض (Hello World)',
+                goal: 'كتابة كود يجعل LED المدمج (Built-in LED) الموجود على لوحة الأردوينو يضيء ثم ينطفئ بشكل متكرر.',
+                theory: '<p>نستخدم <code>pinMode(13, OUTPUT)</code> لإعداد المنفذ، و <code>digitalWrite(13, HIGH)</code> للتشغيل، و <code>digitalWrite(13, LOW)</code> للإطفاء.</p>',
+                placeholder: 'void setup() {\n  // 👈 إعداد المنفذ 13 كمنفذ إخراج\n}\n\nvoid loop() {\n  // 👈 تشغيل LED\n  delay(1000);\n  // 👈 إطفاء LED\n  delay(1000);\n}',
+                check: (code) => {
+                    const high = 'digitalWrite(13,HIGH);';
+                    const low = 'digitalWrite(13,LOW);';
+                    const mode = 'pinMode(13,OUTPUT);';
+                    return code.includes(high) && code.includes(low) && code.includes(mode);
+                },
+                success: '🎉 مهمة مكتملة! تم وميض LED بنجاح.',
+                failure: '❌ خطأ. لم يتم العثور على جميع الأوامر المطلوبة.'
+            },
+            'task-2': {
+                title: 'المهمة 2: تغيير سرعة الوميض',
+                goal: 'اجعل LED يضيء وينطفئ بسرعة أكبر عن طريق تقليل زمن التأخير (delay) من 1000 مللي ثانية إلى 200 مللي ثانية.',
+                theory: '<p>دالة <code>delay()</code> تستخدم وحدة **المللي ثانية (ms)**. لتسريع الوميض، يجب تقليل القيمة إلى 200.</p>',
+                placeholder: 'void setup() {\n  pinMode(13, OUTPUT);\n}\n\nvoid loop() {\n  digitalWrite(13, HIGH); \n  delay(1000); // 👈 عدّل هذه القيمة\n  digitalWrite(13, LOW); \n  delay(1000); // 👈 وعدّل هذه القيمة\n}',
+                check: (code) => code.includes('delay(200);'),
+                success: '🎉 مهمة مكتملة! لقد قمت بتسريع الوميض بنجاح.',
+                failure: '❌ خطأ. تأكد من تعديل قيمتي delay() في دالة loop() إلى 200.'
+            },
+            'task-3': {
+                title: 'المهمة 3: استخدام المتغيرات (Variables)',
+                goal: 'قم بتعريف متغير (Variable) باسم `ledPin` يحمل القيمة 13، واستخدم هذا المتغير في دالتي `setup()` و `loop()` بدلاً من الرقم 13 مباشرة.',
+                theory: '<p><strong>المتغير</strong> هو مساحة لتخزين قيمة. تعريفه يتم باستخدام <code>int ledPin = 13;</code> خارج setup/loop.</p>',
+                placeholder: '// ****** 1. أضف سطر تعريف المتغير هنا ******\n// int ledPin = 13;\n\nvoid setup() {\n  pinMode(13, OUTPUT); // 👈 استبدل الرقم 13 بالمتغير هنا\n}\n\nvoid loop() {\n  digitalWrite(13, HIGH); // 👈 استبدل الرقم 13 بالمتغير هنا\n  delay(500);\n  digitalWrite(13, LOW); // 👈 استبدل الرقم 13 بالمتغير هنا\n  delay(500);\n}',
+                check: (code) => {
+                    const defined = code.includes('intledPin=13');
+                    const used = code.includes('digitalWrite(ledPin,') && code.includes('pinMode(ledPin,');
+                    return defined && used;
+                },
+                success: '🎉 مهمة مكتملة! تم التحقق من الكود بنجاح. لقد استخدمت المتغيرات بنجاح.',
+                failure: '❌ خطأ. تأكد من تعريف المتغير واستخدامه لاستبدال الرقم 13.'
+            }
+        };
+
+        // دالة تحميل المهمة
+        function loadTask(taskId) {
+            const taskData = tasks[taskId];
+            if (!taskData) return;
+
+            // إخفاء الصفحة الرئيسية وعرض محتوى المهمة
+            document.getElementById('homepage').style.display = 'none';
+
+            const taskHtml = `
+                <div class="task-container">
+                    <div class="info-panel">
+                        <h1>${taskData.title} <button onclick="goHome()" style="float:left; font-size:14px; background-color:#6c757d; border:none; padding: 5px 10px; border-radius:4px; color:white; cursor:pointer;">العودة للقائمة</button></h1>
+                        
+                        <div class="task-goal">
+                            الهدف: <strong>${taskData.goal}</strong>
+                        </div>
+                        
+                        <h3>التوصيل (Wiring)</h3>
+                        <p>نحن نستخدم LED المدمج (Pin 13). 
+
+[Image of an Arduino Uno board]
+</p>
+                        
+                        <h3>💡 المفهوم</h3>
+                        ${taskData.theory}
+                    </div>
+                    
+                    <div class="code-panel">
+                        <h3>✍️ الكود (املأ الفراغات)</h3>
+                        <textarea id="codeEditor" rows="15">${taskData.placeholder}</textarea>
+                        
+                        <div class="action-bar">
+                            <button onclick="runCodeSimulation('${taskId}')">تشغيل الكود (تحقق)</button>
+                        </div>
+                        
+                        <div class="simulator-output" id="output"> **[منطقة التحقق]:** اضغط على "تشغيل الكود" بعد إكمال المهمة. </div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('task-content').innerHTML = taskHtml;
+        }
+        
+        // دالة التحقق من الكود (تعتمد على JavaScript)
+        function runCodeSimulation(taskId) {
+            const taskData = tasks[taskId];
+            const output = document.getElementById('output');
+            const code = document.getElementById('codeEditor').value.replace(/\s/g, ''); // إزالة المسافات للتحقق
+
+            if (taskData.check(code)) {
+                output.style.backgroundColor = '#d4edda';
+                output.style.color = '#155724';
+                output.innerHTML = taskData.success;
+            } else {
+                output.style.backgroundColor = '#f8d7da';
+                output.style.color = '#721c24';
+                output.innerHTML = taskData.failure;
+            }
+        }
+
+        // دالة العودة للصفحة الرئيسية
+        function goHome() {
+            document.getElementById('task-content').innerHTML = '';
+            document.getElementById('homepage').style.display = 'block';
+        }
+        
+        // عند تحميل الصفحة، تأكد من عرض الرئيسية وإخفاء محتوى المهام
+        window.onload = function() {
+            document.getElementById('homepage').style.display = 'block';
+        };
+
+    </script>
+</body>
+</html>
