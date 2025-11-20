@@ -1,83 +1,0 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إشارة - المهمة 1: أول وميض</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
-</head>
-<body>
-    <div class="container task-container">
-        <div class="info-panel">
-            <h1>المهمة 1: أول وميض (Hello World)</h1>
-            
-            <div class="task-goal">
-                الهدف: **كتابة كود يجعل LED المدمج (Built-in LED) الموجود على لوحة الأردوينو يضيء ثم ينطفئ بشكل متكرر**.
-            </div>
-            
-            <h3>التوصيل (Wiring)</h3>
-            <p>لن نحتاج لأي أسلاك في هذه المهمة! نحن نستخدم LED المدمج على المنفذ رقم **13** (Pin 13) في لوحة الأردوينو.</p>
-            <div class="wiring-image">
-                 
-
-[Image of an Arduino Uno board]
-
-            </div>
-
-            <h3>💡 المفهوم: التركيب الأساسي للكود</h3>
-            <p>يتكون كود الأردوينو من دالتين رئيسيتين:</p>
-            <ul>
-                <li><code>void setup()</code>: يتم تنفيذ الأوامر داخلها مرة واحدة عند بداية تشغيل اللوحة. نستخدمها لإعداد المنافذ.</li>
-                <li><code>void loop()</code>: يتم تنفيذ الأوامر داخلها بشكل متكرر إلى الأبد. نضع فيها منطق البرنامج.</li>
-            </ul>
-            <p>نستخدم <code>pinMode(13, OUTPUT)</code> لتعريف المنفذ 13 كمنفذ إخراج، و <code>digitalWrite(13, HIGH)</code> لتشغيل LED و <code>digitalWrite(13, LOW)</code> لإطفائه.</p>
-        </div>
-        
-        <div class="code-panel">
-            <h3>✍️ الكود (املأ الفراغات)</h3>
-            <p>اكتب الكود الذي يحقق هدف المهمة. **استخدم 1000 مللي ثانية (1 ثانية) للتأخير**. (انظر المفهوم)</p>
-            <textarea id="codeEditor" rows="15">
-void setup() {
-  // 👈 إعداد المنفذ 13 كمنفذ إخراج
-}
-
-void loop() {
-  // 👈 تشغيل LED
-  delay(1000);
-  // 👈 إطفاء LED
-  delay(1000);
-}
-            </textarea>
-            
-            <div class="action-bar">
-                <button onclick="runCodeSimulation('digitalWrite(13, HIGH);', 'digitalWrite(13, LOW);', 'pinMode(13, OUTPUT);')">تشغيل الكود (تطبيق)</button>
-            </div>
-            
-            <div class="simulator-output" id="output">
-                **[منطقة المحاكي]:** لاحظ وميض LED المدمج ببطء.
-            </div>
-        </div>
-    </div>
-    
-    <script>
-        function runCodeSimulation(high, low, mode) {
-            const output = document.getElementById('output');
-            const code = document.getElementById('codeEditor').value.replace(/\s/g, ''); 
-            
-            // تحقق بسيط من وجود الأوامر الرئيسية
-            if (code.includes(high.replace(/\s/g, '')) && 
-                code.includes(low.replace(/\s/g, '')) && 
-                code.includes(mode.replace(/\s/g, ''))) {
-                
-                output.style.backgroundColor = '#d4edda';
-                output.style.color = '#155724';
-                output.innerHTML = "🎉 مهمة مكتملة! تم وميض LED بنجاح. لقد أنجزت أول برنامج لك.";
-            } else {
-                output.style.backgroundColor = '#f8d7da';
-                output.style.color = '#721c24';
-                output.innerHTML = "❌ خطأ. لم يتم العثور على جميع الأوامر المطلوبة لتشغيل وإطفاء LED وإعداد المنفذ 13.";
-            }
-        }
-    </script>
-</body>
-</html>

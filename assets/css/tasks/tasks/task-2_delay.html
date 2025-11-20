@@ -1,80 +1,0 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إشارة - المهمة 2: تغيير سرعة الوميض</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
-</head>
-<body>
-    <div class="container task-container">
-        <div class="info-panel">
-            <h1>المهمة 2: تغيير سرعة الوميض</h1>
-            
-            <div class="task-goal">
-                الهدف: **اجعل LED يضيء وينطفئ بسرعة أكبر عن طريق تقليل زمن التأخير (delay) من 1000 مللي ثانية إلى 200 مللي ثانية**.
-            </div>
-            
-            <h3>التوصيل (Wiring)</h3>
-            <p>نحن مازلنا نستخدم LED المدمج (Pin 13) وكود المهمة السابقة كنقطة بداية.</p>
-            <div class="wiring-image">
-                 
-
-[Image of an Arduino Uno board]
-
-            </div>
-
-            <h3>💡 المفهوم: دالة التأخير `delay()`</h3>
-            <p>دالة <code>delay()</code> توقف تنفيذ البرنامج مؤقتاً بالمللي ثانية (millisecond). كل **1000** مللي ثانية تساوي **1 ثانية**.</p>
-            <ul>
-                <li>`delay(1000)`: تأخير لمدة ثانية واحدة.</li>
-                <li>`delay(500)`: تأخير لمدة نصف ثانية.</li>
-                <li>`delay(200)`: تأخير لمدة خمس ثانية (وهو المطلوب هنا).</li>
-            </ul>
-        </div>
-        
-        <div class="code-panel">
-            <h3>✍️ الكود (عدّل قيمة التأخير)</h3>
-            <p>عدّل قيمة دالة <code>delay()</code> لتصبح 200 بدلاً من 1000 لتسريع الوميض.</p>
-            <textarea id="codeEditor" rows="15">
-void setup() {
-  pinMode(13, OUTPUT);
-}
-
-void loop() {
-  digitalWrite(13, HIGH); 
-  delay(1000); // 👈 عدّل هذه القيمة
-  digitalWrite(13, LOW); 
-  delay(1000); // 👈 وعدّل هذه القيمة
-}
-            </textarea>
-            
-            <div class="action-bar">
-                <button onclick="runCodeSimulation()">تشغيل الكود (تطبيق)</button>
-            </div>
-            
-            <div class="simulator-output" id="output">
-                **[منطقة المحاكي]:** يجب أن يومض LED بسرعة أكبر بكثير.
-            </div>
-        </div>
-    </div>
-    
-    <script>
-        function runCodeSimulation() {
-            const output = document.getElementById('output');
-            const code = document.getElementById('codeEditor').value;
-
-            // منطق التحقق البسيط: التأكد من استخدام delay(200)
-            if (code.includes('delay(200)')) {
-                output.style.backgroundColor = '#d4edda';
-                output.style.color = '#155724';
-                output.innerHTML = "🎉 مهمة مكتملة! لقد قمت بتسريع الوميض بنجاح. الكود الآن أسرع خمس مرات.";
-            } else {
-                output.style.backgroundColor = '#f8d7da';
-                output.style.color = '#721c24';
-                output.innerHTML = "❌ خطأ. تأكد من تعديل قيمتي delay() في دالة loop() إلى 200.";
-            }
-        }
-    </script>
-</body>
-</html>

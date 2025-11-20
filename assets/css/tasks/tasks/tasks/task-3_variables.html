@@ -1,92 +1,0 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إشارة - المهمة 3: استخدام المتغيرات</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
-</head>
-<body>
-    <div class="container task-container">
-        <div class="info-panel">
-            <h1>المهمة 3: استخدام المتغيرات (Variables)</h1>
-            
-            <div class="task-goal">
-                الهدف: **بدلاً من استخدام الرقم (13) مباشرة في الكود، قم بتعريف متغير (Variable) باسم `ledPin` يحمل القيمة 13، واستخدم هذا المتغير في دالتي `setup()` و `loop()`**.
-            </div>
-            
-            <h3>التوصيل (Wiring)</h3>
-            <p>نحن مازلنا نستخدم LED المدمج (Pin 13).</p>
-            <div class="wiring-image">
-                 
-
-[Image of an Arduino Uno board]
-
-            </div>
-
-            <h3>💡 المفهوم: المتغيرات</h3>
-            <p><strong>المتغير</strong> هو مساحة في الذاكرة لتخزين قيمة. في الأردوينو، نستخدمه لنجعل الكود أكثر وضوحاً وتنظيماً. تعريف المتغير يتم خارج الدالتين <code>setup()</code> و <code>loop()</code> ليتمكن الكود كله من رؤيته:</p>
-            <pre>int ledPin = 13;</pre>
-            <ul>
-                <li><code>int</code>: نوع البيانات (عدد صحيح).</li>
-                <li><code>ledPin</code>: اسم المتغير.</li>
-                <li><code>13</code>: القيمة المخزنة.</li>
-            </ul>
-        </div>
-        
-        <div class="code-panel">
-            <h3>✍️ الكود (أضف المتغير واستخدمه)</h3>
-            <p>أضف سطر تعريف المتغير في الأعلى، وعدّل استخدام الرقم 13 داخل الدالتين.</p>
-            <textarea id="codeEditor" rows="15">
-// ****** 1. أضف سطر تعريف المتغير هنا ******
-// يجب أن يكون اسمه ledPin وقيمته 13
-
-void setup() {
-  pinMode(13, OUTPUT); // 👈 استبدل الرقم 13 بالمتغير هنا
-}
-
-void loop() {
-  digitalWrite(13, HIGH); // 👈 استبدل الرقم 13 بالمتغير هنا
-  delay(500);
-  digitalWrite(13, LOW); // 👈 استبدل الرقم 13 بالمتغير هنا
-  delay(500);
-}
-            </textarea>
-            
-            <div class="action-bar">
-                <button onclick="runCodeSimulation()">تشغيل الكود (تطبيق)</button>
-            </div>
-            
-            <div class="simulator-output" id="output">
-                **[منطقة المحاكي]:** تأكد من عمل الوميض بشكل صحيح بعد استخدام المتغير.
-            </div>
-        </div>
-    </div>
-    
-    <script>
-        function runCodeSimulation() {
-            const output = document.getElementById('output');
-            const code = document.getElementById('codeEditor').value.replace(/\s/g, '');
-
-            // منطق التحقق البسيط: التأكد من تعريف المتغير واستخدامه
-            if (code.includes('intledPin=13;') || code.includes('intledPin=13')) {
-                const usesVariable = code.includes('digitalWrite(ledPin,') && code.includes('pinMode(ledPin,');
-                
-                if (usesVariable) {
-                    output.style.backgroundColor = '#d4edda';
-                    output.style.color = '#155724';
-                    output.innerHTML = "🎉 مهمة مكتملة! لقد استخدمت المتغيرات بنجاح. هذا يجعل الكود أكثر تنظيماً.";
-                } else {
-                    output.style.backgroundColor = '#f8d7da';
-                    output.style.color = '#721c24';
-                    output.innerHTML = "❌ خطأ. لقد عرفت المتغير، ولكن لم تستخدمه بعد لاستبدال الرقم 13 داخل الدوال.";
-                }
-            } else {
-                 output.style.backgroundColor = '#f8d7da';
-                 output.style.color = '#721c24';
-                 output.innerHTML = "❌ خطأ. يجب تعريف المتغير int ledPin = 13; في أعلى الكود.";
-            }
-        }
-    </script>
-</body>
-</html>
